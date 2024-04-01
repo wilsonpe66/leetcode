@@ -2,7 +2,7 @@
 
 class Solution {
 public:
-    vector<int> plusOne(const vector<int>& digits) {
+    constexpr static vector<int> plusOne(const vector<int>& digits) {
         if (digits.empty()) return digits;
         vector<int> result = digits;
 
