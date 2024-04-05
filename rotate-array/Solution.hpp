@@ -2,34 +2,40 @@
 
 class Solution {
     template<class T>
-    static constexpr inline void exchange(T & a, T & b, T c) {
-        a = b;
+    static constexpr inline T exchange(T & b, T c) {
+        T ret = b;
         b = c;
-    }
-
-    /* a >= b */
-    static constexpr inline auto gcd(size_t a, size_t b) {
-        while (b != 0) exchange(a, b, a % b);
-        return a;
+        return ret;
     }
 
     /* a < 2b */
-    static constexpr inline size_t remainder(size_t a, size_t b) {
-        return (a >= b) ? a - b: a;
+    static constexpr inline size_t remainder (size_t a, size_t b) {
+        if (a > (b<<1L)) return a % b;
+        return a - (a >= b) * b;
     }
-public:
-    static constexpr inline void rotate(vector<int>& nums, size_t k) {
-        const size_t sz = nums.size();
-        if (sz < 2) return;
-        k = k % sz;
-        if (k == 0) return;
 
-        const size_t gcd1 = k > 1 ? gcd(sz, k): 1;
-        for (size_t offset = 0L; offset < gcd1; ++offset) {
+    /* a >= b > 0 */
+    static constexpr inline auto gcd(size_t a, size_t b) {
+        while (b) a = exchange(b, remainder(a, b));
+        return a;
+    }
+
+
+public:
+    static constexpr void rotate(vector<int>& nums, size_t k) {
+        if (nums.empty()) return;
+        const size_t sz = nums.size();
+        k = remainder(k, sz);
+        if (sz < 2 || !k) return;
+        
+        size_t gcd1 = 1L;
+        if (k != 1L) gcd1 = gcd(sz, k);
+
+        for (size_t offset = 0L; offset != gcd1; ++offset) {
             int value = nums[offset];
             size_t next = remainder(offset + k, sz);
             while (next != offset) {
-                exchange(value, nums[next], value);
+                value = exchange(nums[next], value);
                 next = remainder(next + k, sz);
             }
             nums[next] = value;
