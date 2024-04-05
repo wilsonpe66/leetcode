@@ -2,15 +2,16 @@
 
 class Solution {
 public:
-    static int majorityElement(vector<int>& nums) {
-        unordered_map<int, size_t> m;
-        m.reserve(50000);
-        for (const int num: nums) ++m[num];
-
-        const size_t maj = (nums.size() / 2) + 1;
-        for (const auto [val, cnt]: m) {
-            if (maj <= cnt) return val;
+    static constexpr inline int majorityElement(const vector<int>& nums) {
+        if (nums.empty()) return INT_MIN;
+        long majority_el = nums[0];
+        long count = 1L;
+        for (auto it = nums.begin() + 1L; it != nums.end(); ++it) {
+            const bool is_count_zero = !count;
+            const int diff = *it - majority_el;
+            majority_el = is_count_zero * diff + majority_el;
+            count -= 1L - ((is_count_zero || !diff)<<1L);
         }
-        return 0;
+        return majority_el;
     }
 };
