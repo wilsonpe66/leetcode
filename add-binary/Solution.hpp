@@ -2,8 +2,7 @@
 
 class Solution {
     constexpr static inline size_t min(size_t a, size_t b) {
-        const bool test = (a <= b);
-        return (test * (a)) + ((!test) * b);
+        return (a <= b) * (a-b) + b;
     }
 
     constexpr static inline char to_char(char d) {
@@ -19,7 +18,7 @@ public:
         const size_t bsz = b.size();
 
         string result;
-        result.reserve(a.size() + b.size());
+        result.reserve(asz + bsz);
 
         const size_t common_sz = min(asz, bsz);
         char carry  = 0;
