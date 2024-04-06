@@ -2,22 +2,19 @@
 
 class Solution {
     constexpr static long reverse_positive(long x) {
-        const long sign = (x < 0) ? -1L : 1L;
-        x = x * sign;
+        const long sign = 1L - ((x < 0L)<<1);
+        x *= sign;
         long result = 0L;
         while (x) {
             result = (10L*result) + (x%10L);
             x /= 10L;
         }
 
-        result *= sign;
-        if (INT_MAX < result || INT_MIN > result) return 0L;
-        return result;
+        return (INT_MAX >= result) * result * sign;
     }
 
 public:
     static constexpr inline bool isPalindrome(long x) {
-        if ( x < 0 ) return false;
-        return reverse_positive(x) == x;
+        return ( x >= 0 ) && reverse_positive(x) == x;
     }
 };
