@@ -23,21 +23,6 @@ public:
         int current_max_value_in_sequence = current_min_value_in_sequence;
 
         while (!nums.empty()) {
-            // // Find the start of the sequence
-            // for (auto it = nums.find(current_min_value_in_sequence); 
-            //         it != nums.end();
-            //         it = nums.find(--current_min_value_in_sequence)
-            // ) nums.erase(it);
-            // ++current_min_value_in_sequence;
-
-            // // Find the end of the sequence
-            // ++current_max_value_in_sequence;
-            // for (auto it = nums.find(current_max_value_in_sequence);
-            //     it != nums.end();
-            //     it = nums.find(++current_max_value_in_sequence)
-            // ) nums.erase(it);
-            // --current_max_value_in_sequence;
-
             // Find the start of the sequence
             for (auto it = nums.find(current_min_value_in_sequence);
                     it != nums.end();
