@@ -11,11 +11,6 @@
  * };
  */
 class Solution {
-    struct {
-        ListNode * lower = nullptr;
-        ListNode * mid = nullptr;
-        ListNode * upper = nullptr;
-    };
 public:
     /**
         The number of nodes in the list is in the range [0, 5 * 104].
