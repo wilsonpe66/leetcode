@@ -83,7 +83,7 @@ class Solution {
         }
 
         constexpr bool isAllSame() const {
-            int val = (*pgrid)[top_left_row_][top_left_col_];
+            const int val = (*pgrid)[top_left_row_][top_left_col_];
             
             const size_t num_of_rows = num_of_rows_ + top_left_row_;
             const size_t num_of_cols = num_of_cols_ + top_left_col_;
@@ -104,15 +104,12 @@ class Solution {
 
         constexpr optional<GridView> subView(const size_t top_left_row, const size_t top_left_col, const size_t num_of_rows,
                                              const size_t num_of_cols) const {
-            const size_t top_left_row_local = top_left_row_ + top_left_row;
-            const size_t top_left_col_local = top_left_col_ + top_left_col;
-
             if (num_of_rows + top_left_row > num_of_rows_ || num_of_cols + top_left_col > num_of_cols_) return {};
 
             return GridView(
                 *pgrid,
-                top_left_row_local,
-                top_left_col_local,
+                top_left_row_ + top_left_row,
+                top_left_col_ + top_left_col,
                 num_of_rows,
                 num_of_cols
             );
@@ -143,13 +140,11 @@ class Solution {
         n == 2^x where 0 <= x <= 6
      */
     static Node* construct(GridView grid_view) {
-        //grid_view.print();
         if (grid_view.empty()) return nullptr;
-
-        if (grid_view.isAllSame()) return new Node(grid_view.get(0, 0), true);
 
         const size_t mid_row = grid_view.num_of_rows()>>1;
         const size_t mid_col = grid_view.num_of_cols()>>1;
+        if (!mid_row || !mid_col || grid_view.isAllSame()) return new Node(grid_view.get(0, 0), true);
 
         return new Node(false, false, 
             construct(grid_view.subView(0, 0, mid_row, mid_col)),
@@ -164,7 +159,8 @@ public:
         n == grid.length == grid[i].length
         n == 2^x where 0 <= x <= 6
      */
-    static Node* construct(vector<vector<int>>& grid) {
+    static Node* construct(const vector<vector<int>>& grid) {
         return construct(GridView(grid));
     }
 };
+
