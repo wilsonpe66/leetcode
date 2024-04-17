@@ -11,7 +11,7 @@ class Solution {
         return (a > b) * (a-b) + b;
     }
 
-    static constexpr size_t conditional_gt_diff(size_t a, size_t b) {
+    static constexpr inline size_t conditional_gt_diff(size_t a, size_t b) {
         return (a > b) * (a - b);
     }
 
@@ -24,7 +24,9 @@ class Solution {
     };
 
     static void print(span<int> height) {
-        cout<<"("<<height.size()<<")[";for(const auto h: height) cout<<" "<<h;cout<<" ]"<<endl;
+        cout<<"("<<height.size()<<")[";
+        for(const auto h: height) cout<<" "<<h;
+        cout<<" ]"<<endl;
     }
    
 public:
@@ -49,49 +51,51 @@ public:
 
         size_t left_sz = 0L;
         size_t left_end_max_height = left_height;
-        size_t max_sz = 0L;
-        size_t max_value = 0L;
-        for (auto it = height.begin(); it != height.end(); ++it) {
-            ++left_sz;
-            if (max_value > *it) continue;
+        {
+            size_t max_sz = 0L;
+            size_t max_value = 0L;
+            for (auto it = height.begin(); it != height.end(); ++it) {
+                ++left_sz;
+                if (max_value > *it) continue;
 
-            max_value = *it;
-            max_sz = left_sz;
+                max_value = *it;
+                max_sz = left_sz;
 
-            if (left_height < *it) {
-                left_end_max_height = *it;
-                break;
+                if (left_height < *it) {
+                    left_end_max_height = *it;
+                    break;
+                }
             }
+            left_sz = left_sz == sz ? max_sz: left_sz;
         }
-
-        left_sz = left_sz == sz ? max_sz: left_sz;
 
         cnt += sum(height.subspan(0L, left_sz), min(left_height, left_end_max_height));
         
+        // Left trim the height.
         height = height.subspan(left_sz - 1L);
         sz = height.size();
         
         size_t right_sz = sz;
         size_t right_start_max_height = *height.rbegin();
-        max_sz = right_sz;
-        max_value = 0L;
-        for (auto it = height.rbegin(); it != height.rend(); ++it) {
-            --right_sz;
-            if (max_value > *it) continue;
-            
-            max_value = *it;
-            max_sz = right_sz;
-            if (right_height < *it) {
-                right_start_max_height = *it;
-                break;
+        {
+            size_t max_sz = 0L;
+            size_t max_value = 0L;
+            for (auto it = height.rbegin(); it != height.rend(); ++it) {
+                --right_sz;
+                if (max_value > *it) continue;
+                
+                max_value = *it;
+                max_sz = right_sz;
+                if (right_height < *it) {
+                    right_start_max_height = *it;
+                    break;
+                }
             }
+            right_sz = right_sz ? right_sz: max_sz;
         }
 
-        right_sz = right_sz ? right_sz: max_sz;
-
         cnt += sum(height.subspan(right_sz), min(right_height, right_start_max_height));
-        height = height.subspan(0L, min(right_sz + 1L, height.size()));
-        return cnt + trap(height);
+        return cnt + trap(height.subspan(0L, min(right_sz + 1L, sz)));
     }
 
     static constexpr size_t trap(span<int> height) {
@@ -115,8 +119,7 @@ public:
         // right trim the span;
         size_t right_sz = height.size();
         auto it = height.rbegin();
-        auto next_it = it + 1L;
-        for (; next_it != height.rend() && *next_it >= *it; ++next_it) {
+        for (auto next_it = it + 1L; next_it != height.rend() && *next_it >= *it; ++next_it) {
             --right_sz;
             it = next_it;
         }
@@ -125,4 +128,3 @@ public:
         return trapP(height.subspan(0L, right_sz));
     }
 };
-
