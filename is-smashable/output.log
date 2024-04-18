@@ -1,0 +1,311 @@
+g++ --std=c++17 -O3 -Wall is-smashable.cpp -o is-smashable  && ./is-smashable                                                                                                                                                                  148 ↵ ──(Thu,Apr18)─┘
+DICTIONARY: {
+ - 😊€€
+ - 100€nk
+ - 10€
+ - pin
+ - £
+ - in
+ - 10j0€nk
+ - 1€
+ - i
+ - in£
+ - €
+ - 😊€
+ - 100€
+ - fin
+ - 😊€£€m😊
+ - 100€n
+ - dog
+ - in£m
+ - 😊😊😊
+ - 😊€£€m
+ - 😊€£€
+ - 😊
+ - i£
+}
+
+====================================================
+Test Description: Emptry String Test
+        Checking: ''
+Actual Result: '' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Only white space string
+        Checking: '      
+ '
+Using result from cache for '': 0
+Actual Result: '      
+ ' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word I
+        Checking: 'I'
+FOUND: 'i'
+Actual Result: 'I' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word i
+        Checking: 'i'
+Using result from cache for 'i': 1
+Actual Result: 'i' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word i with padding
+        Checking: '  i      '
+Using result from cache for 'i': 1
+Actual Result: '  i      ' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word  in.
+        Checking: 'in'
+Using result from cache for 'i': 1
+FOUND: 'in'
+Actual Result: 'in' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word iN
+        Checking: 'iN'
+Using result from cache for 'in': 1
+Actual Result: 'iN' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word In
+        Checking: 'In'
+Using result from cache for 'in': 1
+Actual Result: 'In' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word In with padding
+        Checking: ' In      '
+Using result from cache for 'in': 1
+Actual Result: ' In      ' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word DOG
+        Checking: 'DOG'
+Actual Result: 'DOG' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word dOg
+        Checking: 'dOg'
+Using result from cache for 'dog': 0
+Actual Result: 'dOg' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word DOG with padding
+        Checking: ' DOG      '
+Using result from cache for 'dog': 0
+Actual Result: ' DOG      ' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word pin
+        Checking: 'pin'
+Using result from cache for 'in': 1
+FOUND: 'pin'
+Actual Result: 'pin' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word PiN
+        Checking: 'PiN'
+Using result from cache for 'pin': 1
+Actual Result: 'PiN' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word PiN with padding
+        Checking: '  PiN      '
+Using result from cache for 'pin': 1
+Actual Result: '  PiN      ' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word FIN
+        Checking: 'fin'
+Using result from cache for 'in': 1
+FOUND: 'fin'
+Actual Result: 'fin' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the word ATTTKE
+        Checking: 'ATTTKE'
+Actual Result: 'ATTTKE' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii test the long word PINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPIN
+        Checking: 'PINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPIN'
+Actual Result: 'PINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPIN' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Ascii retest the same long word PINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPIN
+        Checking: 'PINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPIN'
+Using result from cache for 'pinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpinpin': 0
+Actual Result: 'PINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPINPIN' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Single Smily Face (4 Code word code uft8 char)
+        Checking: '😊'
+FOUND: '😊'
+Actual Result: '😊' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Double Smily Face
+        Checking: '😊😊'
+Actual Result: '😊😊' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Tripple Smily Face
+        Checking: '😊😊😊'
+Using result from cache for '😊😊': 0
+Using result from cache for '😊😊': 0
+Using result from cache for '😊😊': 0
+Actual Result: '😊😊😊' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Single Smily Face with right padding
+        Checking: '😊     '
+Using result from cache for '😊': 1
+Actual Result: '😊     ' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Single Smily Face with left padding
+        Checking: '    😊'
+Using result from cache for '😊': 1
+Actual Result: '    😊' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Single Smily Face with padding on both sides
+        Checking: '       😊                     '
+Using result from cache for '😊': 1
+Actual Result: '          😊                     ' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: 2 Code word code test
+        Checking: '£'
+FOUND: '£'
+Actual Result: '£' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Word with 2 Code word code uft8 char in it 1.
+        Checking: 'in£'
+Using result from cache for '£': 1
+FOUND: 'i£'
+FOUND: 'in£'
+Actual Result: 'in£' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Word with 2 Code word code uft8 char in it 1.
+        Checking: 'in£m'
+Using result from cache for 'in£': 1
+FOUND: 'in£m'
+Actual Result: 'in£m' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Word with 2 Code word code uft8 char in it 2.
+        Checking: 'iN£m'
+Using result from cache for 'in£m': 1
+Actual Result: 'iN£m' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Word with 2 Code word code uft8 char in it 3.
+        Checking: 'iN£mk'
+Actual Result: 'iN£mk' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Word with 2 Code word code uft8 char in it 4.
+        Checking: '    iN£nk   '
+Actual Result: '    iN£nk   ' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Word with 2 Code word code uft8 char in it 5.
+        Checking: 'iN£n'
+Actual Result: 'iN£n' is NOT smashable.
+TEST: PASSED
+
+====================================================
+Test Description: 3 Code word code test
+        Checking: '€'
+FOUND: '€'
+Actual Result: '€' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Word with 3 Code word code uft8 char in it 1.
+        Checking: '100€'
+Using result from cache for '€': 1
+FOUND: '1€'
+FOUND: '10€'
+FOUND: '100€'
+Actual Result: '100€' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Word with 3 Code word code uft8 char in it 2.
+        Checking: '100€n'
+Using result from cache for '10€n': 0
+Using result from cache for '100€': 1
+FOUND: '100€n'
+Actual Result: '100€n' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Word with 3 Code word code uft8 char in it 3.
+        Checking: '100€nk'
+Using result from cache for '10€nk': 0
+Using result from cache for '100€n': 1
+FOUND: '100€nk'
+Actual Result: '100€nk' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Word with 3 Code word code uft8 char in it 4.
+        Checking: '10j0€nk'
+Using result from cache for '100€nk': 1
+FOUND: '10j0€nk'
+Actual Result: '10j0€nk' is smashable.
+TEST: PASSED
+
+====================================================
+Test Description: Full mix test.
+        Checking: ' 
+        😊€£€m😊     '
+Using result from cache for '€': 1
+FOUND: '😊€'
+FOUND: '��€€'
+FOUND: '😊€£€'
+FOUND: '😊€£€m'
+FOUND: '😊€£€m😊'
+Actual Result: ' 
+        😊€£€m😊     ' is smashable.
+TEST: PASSED
+
+ALL TEST PASSED!!!!
