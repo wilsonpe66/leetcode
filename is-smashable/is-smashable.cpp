@@ -5,7 +5,7 @@
  * be a discussion of the programmatic interface to the solution,
  * followed by the implementation.  You can expect follow-on questions
  * after the implementation is complete.
- *  
+ *
  * We're going to start by defining a trait or characteristic that a word
  * might have.  That characteristic is that the word not only appears in
  * the dictionary, but that there exists some letter than you can remove
@@ -16,23 +16,23 @@
  * pattern continues until there are no more letters left.  You will be
  * creating software which will answer the question of whether or not a
  * given word satisfies this description.
- *  
+ *
  * Example of a word that satisfies the definition:
- *  
+ *
  *   PAINT
  *   PINT  // Removed the A
  *   PIN   // Removed the T
  *   IN    // Removed the P
  *   I     // Removed the N
- *  
+ *
  * Example of a word that does not satisfy the definition:
- *  
+ *
  *   SMALL
  *   MALL
  *   ALL
  *   AL  // Not in dictionary
  * has context menu
- * 
+ *
  **/
 
 #include <unordered_set>
@@ -49,7 +49,7 @@ using cache = std::unordered_map<std::string, bool>;
 
 cache gcache;
 
-constexpr inline size_t char_to_code_word_lenth(unsigned char fist_code_unit) {
+constexpr inline size_t char_to_code_word_length(unsigned char fist_code_unit) {
     if (fist_code_unit <= 127) return 1L;
     if (fist_code_unit < 0xE0) return 2L;
     else if (fist_code_unit < 0xF0) return 3L;
@@ -70,16 +70,17 @@ bool is_smashable(const dictionay & dict, const std::string & word) {
     // Construct Cache entry
     bool is_found = false;
     if (dict.find(word) != dict.end()) {
-        const size_t cw_len = char_to_code_word_lenth(word[0L]);
-        if (cw_len == word.size()) {
+        const size_t cw_len = char_to_code_word_length(word[0L]);
+        const auto word_sw = word.size();
+        if (cw_len == word_sw) {
             is_found = true;
-        } else if (cw_len < word.size()) {
-            for (size_t i = 0L; i < word.size();) {
-                const size_t code_word_size = char_to_code_word_lenth(word[i]);
+        } else if (cw_len < word_sw) {
+            for (size_t i = 0L; i < word_sw;) {
+                const size_t code_word_size = char_to_code_word_length(word[i]);
                 std::string new_word = word.substr(0L, i);
 
-                i += code_word_size;                
-                if (i < word.size()) new_word += word.substr(i);
+                i += code_word_size;
+                if (i < word_sw) new_word += word.substr(i);
                 if (is_smashable(dict, new_word)) {
                     is_found = true;
                     break;
@@ -89,7 +90,7 @@ bool is_smashable(const dictionay & dict, const std::string & word) {
     }
 
     if (is_found) {
-        std::cout<<"FOUND: '"<<word<<"'\n"; 
+        std::cout<<"FOUND: '"<<word<<"'\n";
     }
 
     // Set the cache
@@ -115,7 +116,7 @@ std::string to_trim_and_lower(std::string_view str) {
     size_t l = 0L;
     while (l < str.size()) {
         const char ch = str[l];
-        const size_t len  = char_to_code_word_lenth(ch);
+        const size_t len  = char_to_code_word_length(ch);
         if (len > 1 || !is_white_space(ch)) break;
         l += len;
     }
@@ -126,7 +127,7 @@ std::string to_trim_and_lower(std::string_view str) {
     size_t rtrail_sz = str.size();
     for (size_t r = 0L; r < str.size(); ) {
         const char ch = str[r];
-        const size_t len  = char_to_code_word_lenth(ch);
+        const size_t len  = char_to_code_word_length(ch);
         if (len == 1 && is_white_space(ch)) --rtrail_sz;
         else rtrail_sz = str.size();
         r += len;
@@ -136,7 +137,7 @@ std::string to_trim_and_lower(std::string_view str) {
     // Lowwer casing str2
     for (size_t i = 0L; i < str2.size(); ) {
         char &ch = str2[i];
-        const size_t len  = char_to_code_word_lenth(ch);
+        const size_t len  = char_to_code_word_length(ch);
         if (len == 1 && ch >= 'A' && ch <= 'Z') ch += ('a' - 'A');
         i += len;
     }
@@ -213,7 +214,7 @@ int main() {
         {"Single Smily Face with right padding", "😊     ", true},
         {"Single Smily Face with left padding", "    😊", true},
         {"Single Smily Face with padding on both sides", "  \t  😊\t \t         ", true},
-        
+
         {"2 Code word code test", "£", true},
         {"Word with 2 Code word code uft8 char in it 1.", "in£", true},
         {"Word with 2 Code word code uft8 char in it 1.", "in£m", true},
@@ -221,7 +222,7 @@ int main() {
         {"Word with 2 Code word code uft8 char in it 3.", "iN£mk", false},
         {"Word with 2 Code word code uft8 char in it 4.", "    iN£nk   ", false},
         {"Word with 2 Code word code uft8 char in it 5.", "iN£n", false},
-        
+
         {"3 Code word code test", "€", true},
         {"Word with 3 Code word code uft8 char in it 1.", "100€", true},
         {"Word with 3 Code word code uft8 char in it 2.", "100€n", true},
@@ -237,8 +238,8 @@ int main() {
         std::cout<<"====================================================\n"
                     <<"Test Description: " << description << "\n"
                     <<"\tChecking: '" << word << "'\n";
-        
-        const bool result = code::is_smashable(dict, code::to_trim_and_lower(word));
+
+       const bool result = code::is_smashable(dict, code::to_trim_and_lower(word));
         const bool test_passed = (result == expected_valued);
         std::cout <<"Actual Result: '"<<word<<"' is " << (result ? "": "NOT ") << "smashable.\n"
                   <<"TEST: "<<(test_passed ? "PASSED": "FAILED") << "\n\n";
